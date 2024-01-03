@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'usersapp:main' %}">
+               {% load static %}<img src="{% static 'usersapp/media/logo.png' %}"  alt="logo" width="200" height="100" />
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarScroll"
+                aria-controls="navbarScroll"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="{% url 'contactsapp:search_contact' %}" aria-haspopup="listbox" role="button">Contact</a>
+                    <ul role="listbox">
+                        <li><a href="{% url 'contactsapp:search_contact' %}">Search contact</a></li>
+                        <li><a href="{% url 'contactsapp:add_contact' %}">Add contact</a></li>
+                        <li><a href="{% url 'contactsapp:upcoming_birthdays' %}">Upcoming birthdays</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="{% url 'notesapp:search_tag' %}" aria-haspopup="listbox" role="button">Tag</a>
+                    <ul role="listbox">
+                        <li><a href="{% url 'notesapp:search_tag' %}">Search tag</a></li>
+                        <li><a href="{% url 'notesapp:add_tag' %}">Add tag</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="{% url 'notesapp:search_note' %}" aria-haspopup="listbox" role="button">Note</a>
+                    <ul role="listbox">
+                        <li><a href="{% url 'notesapp:search_note' %}">Search note</a></li>
+                        <li><a href="{% url 'notesapp:add_note' %}">Add note</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="{% url 'cloud_storageapp:dropbox_folders' %}" aria-haspopup="listbox"
+                       role="button">File</a>
+                    <ul role="listbox">
+                        <li><a href="{% url 'cloud_storageapp:upload_file' %}">Load file</a></li>
+                        <li><a href="{% url 'cloud_storageapp:dropbox_folders' %}">Download file</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox" role="button">News</a>
+                    <ul role="listbox">
+                        <li><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}"
+                                             id="btn_war_ukraine">War in Ukraine</a></li>
+                        <li><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a></li>
+                        <li><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="{% url 'usersapp:logout_user' %}?next={% url 'usersapp:login_user' %}"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Logout</a>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="{% url 'usersapp:login_user' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Login</a>
+                </li>
+                <li class="nav-item ms-auto">
+                    <a href="{% url 'usersapp:create_user_profile' %}" type="button"
+                       class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Sign Up</a>
+                </li>
+            </ul>
+            {% endif %}
+
+
+        </div>
+    </div>
+ <style>
+
+    ul[role="listbox"] {
+        background-color: #f0f0f0; /* Replace with the desired color */
+        padding: 10px; /* Optional: Add padding to the list */
+        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    }
+
+    details[role=list] summary+ul, li[role=list]>ul {
+
+    z-index: 99;
+    position: absolute;
+    top: auto;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border: var(--border-width) solid #f8f9fa;
+    border-radius: var(--border-radius);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    background-color: #f0f0f0;
+    box-shadow: var(--card-box-shadow);
+    color: var(--dropdown-color);
+    white-space: nowrap;
+}
+
+    ul[role="list"][dir="rtl"] {
+        background-color: #ffffff;
+
+
+    ul li a {
+        font-size: 15px;
+    }
+
+    ul li a {
+      background-color: #f0f0f0; /* Replace this with the desired color */
+      padding: 5px 10px; /* Add some padding to make the background visible */
+      border-radius: 5px; /* Add border-radius for rounded corners */
+      text-decoration: none; /* Remove underline from links */
+}
+
+
+    ul li a:hover {
+        background-color: #ccc; /* Replace this with the desired hover color */
+    }
+
+    .small-button-spacing {
+        margin-bottom: 10px;
+    }
+
+
+    </style>
+</nav>

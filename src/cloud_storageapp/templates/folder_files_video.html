@@ -1,0 +1,31 @@
+{% extends 'usersapp/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/path/to/styles.css">
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-8">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <h2 class="text-uppercase text-center mb-3">Your files</h2>
+                    <ul>
+                        {% for file in files %}
+                        <li><a href="{% url 'cloud_storageapp:download_file' file_path=file.path_display|urlencode %}">{{file.name}}</a></li>
+                        <form action="{% url 'cloud_storageapp:remove_file' file_path=file.path_display|urlencode %}"
+                              method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body smaller-button" style="font-size: 14px; padding: 6px 12px; width: 150px;">Remove file</button>
+
+                        </form>
+                        {% endfor %}
+                    </ul>
+                    <input type="button" value="Go back!" onclick="history.back()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

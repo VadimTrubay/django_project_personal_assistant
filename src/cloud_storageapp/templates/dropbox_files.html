@@ -1,0 +1,30 @@
+{% extends 'usersapp/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/path/to/styles.css">
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-11 col-md-8 col-lg-8 col-xl-10">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-3">File Uploaded Successfully</h2>
+                    <ul>
+                        {% for folder in folders %}
+                        <li><a href="{% url 'cloud_storageapp:folder_files' folder_path=folder.path_display %}">{{folder.name}}</a>
+                            <form action="{% url 'cloud_storageapp:remove_folder' folder_path=folder.path_display|urlencode %}"
+                                  method="post">
+                                {% csrf_token %}
+                                <button type="submit">Remove folder</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div></div></div></div></div>
+{% endblock %}
+    <ul>
+        {% for file in files %}
+            <li>{{ file.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

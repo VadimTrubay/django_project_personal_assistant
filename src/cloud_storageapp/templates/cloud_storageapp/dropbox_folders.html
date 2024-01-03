@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Dropbox Files</title>
+</head>
+<body>
+<h1>Folders in Dropbox</h1>
+<ul>
+    {% for folder in folders %}
+    <div><a href="{% url 'cloud_storageapp:folder_files' folder_path=folder.path_display %}">{{ folder.name }}</a>
+        <form action="{% url 'cloud_storageapp:remove_folder' folder_path=folder.path_display|urlencode %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Remove folder</button>
+        </form>
+    </div>
+    {% endfor %}
+</ul>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+        {% for article in text %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <a href="{% url 'newsapp:detail_paragraph' q=article.title %}" role="button" class="btn btn-outline-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

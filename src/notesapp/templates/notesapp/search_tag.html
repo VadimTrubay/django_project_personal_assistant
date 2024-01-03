@@ -1,0 +1,130 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<style>
+.custom-container {
+    width: 40%;
+    margin: 0 auto; /* To center the container horizontally */
+    }
+
+.scroll-table-body {
+  text-align: center;
+ height: 700px;
+ overflow-x: center;
+ margin-top: 0px;
+ margin-bottom: 20px;
+ border-bottom: 1px solid #eee;
+}
+.scroll-table table {
+ text-align: center;
+ width:100%;
+ table-layout: fixed;
+ border: 1px solid #ddd;
+}
+.scroll-table thead th {
+ font-weight: bold;
+ text-align: center;
+ border: none;
+ padding: 10px 15px;
+ background: #b3b3b3;
+ font-size: 14px;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+}
+.scroll-table tbody td {
+ text-align: center;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+ padding: 10px 15px;
+ font-size: 14px;
+ vertical-align: top;
+}
+.scroll-table tbody tr:nth-child(even){
+ text-align: center;
+ background: #b3b3b3;
+}
+.table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #DE00FF;
+
+    }
+.my-table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #616161;
+}
+/* Стили для скролла */
+::-webkit-scrollbar {
+ width: 6px;
+}
+::-webkit-scrollbar-track {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+td{
+text-align: center;
+}
+
+th{
+text-align: center;
+color: #b3b3b3;
+}
+</style>
+<div class="container my-2">
+<!--    <h4 class="text-center">Search by Contact ('all' or space to display all tag)</h4>-->
+        <form class="d-flex" role="search" method="GET" action="{% url 'notesapp:search_tag' %}">
+            <input class="form-control me-2" name="search_query" type="search" placeholder="Search by Tag ('all' or space to display all tags)" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" class="btn btn-warning" style="padding: 5px 10px;">Search
+        </button>
+    </form>
+
+
+{% if search_query_tag %}
+<h4 class="text-center">Search results for "{{ search_query_tag }}"</h4>
+{% if all_tags %}
+                <div class="custom-container m-10">
+                    <div class="text-center">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                                <tr class="tr">
+                                    <th><strong>Tag</strong>
+                                </tr>
+                                    {% for tag in all_tags %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endif %}
+{% if search_results_tag %}
+                <div class="custom-container m-10">
+                    <div class="text-center">
+                        <div class="scroll-table">
+                            <table class="table">
+                                <thead>
+                               <tr class="tr">
+                                    <th><strong>Tag</strong>
+                                </tr>
+                                    {% for tag in search_results_tag %}
+                                <tr>
+                                    <td><a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-6 col-lg-6 col-xl-5">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-3">Add Tag</h2>
+                    {% if form.errors %}
+                    <span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
+                    {% endif %}
+    <form class="container me-2" method="POST" action="{% url 'notesapp:add_tag' %}">
+        {% csrf_token %}
+        <div class="form-outline mb-2">
+            <label class="form-label">Add tag*: {{ form.name }}</label>
+        <span>{{form.errors.name}}</span>
+        </div>
+         <div class="d-flex justify-content-center button-container">
+            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Submit</button>
+            <button type="reset" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Reset</button>
+         </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<style>
+.btn-container {
+margin-right: 10px;
+}
+</style>
+<div class="container my-1">
+    {% if contact %}
+            <h4 class="text-center">Results for Contact "{{ contact.first_name }}"</h4>
+        <div class="container my-1">
+            <div class="form-control d-flex flex-row">
+                <div class="flex-fill">
+                    <strong>First name:</strong> {{ contact.first_name }}<br>
+                    <strong>Last name:</strong> {{ contact.last_name }}<br>
+                    <strong>Address:</strong> {{ contact.address }}<br>
+                    <strong>Phone Number:</strong> {{ contact.phone_number }}<br>
+                    <strong>Email:</strong> {{ contact.email }}<br>
+                    <strong>Birthday:</strong> {{ contact.birth_date }}<br>
+                    <strong>Sex:</strong> {{ contact.sex }}<br>
+                    <strong>Status:</strong> {{ contact.status }}<br>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:edit_contact' contact.id %}">Edit Contact</a>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:delete_contact' contact.id %}">Delete</a>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'contactsapp:send_email' contact.id %}">Send email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div align="right"><button class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-2" type="button" onclick="history.back()">Back</button></div>
+    {% endif %}
+</div>
+{% endblock %}

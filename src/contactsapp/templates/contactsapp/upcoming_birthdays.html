@@ -1,0 +1,138 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<style>
+.custom-container {
+    width: 100%;
+    margin: 0 auto; /* To center the container horizontally */
+    }
+
+.scroll-table-body {
+  text-align: center;
+ height: 700px;
+ overflow-x: center;
+ margin-top: 0px;
+ margin-bottom: 20px;
+ border-bottom: 1px solid #eee;
+}
+.scroll-table table {
+ text-align: center;
+ width:100%;
+ table-layout: fixed;
+ border: 1px solid #ddd;
+}
+.scroll-table thead th {
+ font-weight: bold;
+ text-align: center;
+ border: none;
+ padding: 10px 15px;
+ background: #b3b3b3;
+ font-size: 14px;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+}
+.scroll-table tbody td {
+ text-align: center;
+ border-left: 1px solid #ddd;
+ border-right: 1px solid #ddd;
+ padding: 10px 15px;
+ font-size: 14px;
+ vertical-align: top;
+}
+.scroll-table tbody tr:nth-child(even){
+ text-align: center;
+ background: #b3b3b3;
+}
+.table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #DE00FF;
+
+    }
+.my-table {
+        text-align: center;
+        background-color: #C5F2F3;
+        padding: 10px;
+        color: #616161;
+}
+/* Стили для скролла */
+::-webkit-scrollbar {
+ width: 6px;
+}
+::-webkit-scrollbar-track {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+ box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+td{
+text-align: center;
+}
+
+th{
+text-align: center;
+color: #b3b3b3;
+}
+
+</style>
+<div class="container my-2">
+    <h4 class="text-center">Upcoming Birthdays</h4>
+    <form class="form-control" method="POST" action="{% url 'contactsapp:upcoming_birthdays' %}">
+        {% csrf_token %}
+        <div class="d-flex my-1">
+            <label class="nav-link fs-6 mt-1 mx-2" for="days">Number of days:</label>
+            <input class="me-4" type="number" name="days" id="days" min="1" max="365">
+            <button class="btn btn-success btn-block btn-lg gradient-custom-5 text-body" type="submit">Search</button>
+        </div>
+    </form>
+{% if contacts %}
+    <h4 class="text-center">Results</h4>
+       <div class="custom-container md-10">
+    <div class="text-center">
+        <div class="scroll-table">
+            <table class="table">
+                <thead>
+                <tr class="tr">
+                    <th><strong>First name</strong></th>
+                    <th><strong>Last name</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Phone number</strong></th>
+                    <th><strong>Birthday</strong></th>
+                    <th><strong>Status</strong></th>
+                    <th><strong>Sex</strong></th>
+                    <th><strong>TG</strong></th>
+                    <hr>
+                </tr>
+                {% for contact in contacts %}
+                <tr>
+                    <td><a href="{% url 'contactsapp:detail_contact' contact.id %}">{{contact.first_name}}</a></td>
+                    <td>{{contact.last_name}}</td>
+                    <td><a href="{% url 'contactsapp:send_email' contact.id %}">{{contact.email|truncatechars:15}}</a></td>
+                    {% if contact.phone_number != 'None' %}
+                    <td>{{contact.phone_number}}</td>
+                    {% else %}
+                    <td>- - - -</td>
+                    {% endif %}
+                    <td>{{contact.birth_date}}</td>
+                    <td>{{contact.status}}</td>
+                    <td>{{contact.sex}}</td>
+                    <td>
+                        <div class="small text-center button-container">
+                            <a href="{% url 'ai_chat_bot:redirect_check' query=contact.id  %}" class="text-center"><i>Virtual
+                                Contact Chat</i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <h4 class="text-center">Results</h4>
+    {% endif %}
+</div>
+{% endblock %}

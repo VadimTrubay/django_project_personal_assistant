@@ -1,0 +1,35 @@
+{% extends "usersapp/base.html" %}
+{% load extract_tags %}
+{% block content %}
+<style>
+.btn-container {
+margin-right: 10px;
+}
+</style>
+<div class="container my-1">
+    {% if note %}
+        <h4 class="text-center">Results for Note "{{ note.title }}"</h4>
+        <div class="container my-1">
+            <div class="form-control d-flex flex-row">
+                <div class="flex-fill">
+                    <strong>Title:</strong> {{ note.title }}<br>
+                    <strong>Description:</strong> {{ note.description }}<br>
+                    <strong>Tags:</strong>
+                    {% for tag in note.tags.all %}
+                    <a href="{% url 'notesapp:detail_tag' tag.id %}">{{tag.name}},</a>
+                    {% endfor %}
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'notesapp:edit_note' note.id %}">Edit Note</a><br>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-success btn-block btn-lg gradient-custom-5 text-body"  href="{% url 'notesapp:delete_note' note.id %}">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div align="right"><button class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-2" type="button" onclick="history.back()">Back</button></div>
+    {% endif %}
+</div>
+{% endblock %}

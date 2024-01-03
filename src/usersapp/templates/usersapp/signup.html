@@ -1,0 +1,83 @@
+{% extends 'usersapp/base.html' %}
+{% load static %}
+{% block content %}
+
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-8 col-md-6 col-lg-4 col-xl-6">
+                    <div class="card" style="border-radius: 15px; height: 800px; overflow-y: auto;">
+                       <div class="card-body d-flex flex-column align-items-center">
+                            <h3 class="text-uppercase text-center mb-2">Create an account</h3>
+
+                            <form method="post" action="{% url 'usersapp:create_user_profile' %}">
+                                {% csrf_token %}
+
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="email" id="form3Example3cg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Your Email: {{ form.email }}</label>
+                                    <span>{{form.errors.email}}</span>
+                                </div>
+
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="text" id="form3Example6cg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Your Username: {{ form.username }}</label>
+                                    <span>{{form.errors.username}}</span>
+                                </div>
+
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Your First Name: {{ form.first_name }}</label>
+                                    <span>{{form.errors.first_name}}</span>
+                                </div>
+
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="text" id="form3Example2cg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Your Last Name: {{ form.last_name }}</label>
+                                    <span>{{form.errors.last_name}}</span>
+                                </div>
+
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Password: {{ form.password1 }}</label>
+                                    <span>{{form.errors.password1}}</span>
+                                </div>
+
+                                <div class="form-outline d-flex justify-content-center mb-1">
+                                    <!--                                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg"/>-->
+                                    <label class="form-label">Repeat your password: {{ form.password2 }}</label>
+                                    <span>{{form.errors.password2}}</span>
+                                </div>
+
+                                <div class="form-check d-flex justify-content-center mb-2">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg"/>
+                                    <label class="form-check-label" for="form2Example3cg">
+                                        I agree all statements in <a href="{% url 'usersapp:terms' %}" class="text-body"><u>Terms of service</u></a>
+                                    </label>
+                                </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                        Register
+                                    </button>
+                                </div>
+
+                                <p class="text-center text-muted mt-3 mb-0">Have already an account?
+                                    <a href="{% url 'usersapp:login_user' %}"
+                                       class="fw-bold text-body"><u>Login
+                                        here</u></a></p>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-6 col-lg-6 col-xl-5">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-3">Edit Contact</h2>
+                    {% if form.errors %}
+                    <span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
+                    {% endif %}
+    <form class="container me-2" method="POST" action="{% url 'contactsapp:edit_contact' contact.id %}">
+        {% csrf_token %}
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit first name*: {{ form.first_name }}</label>
+            <span>{{form.errors.first_name}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit last name*: {{ form.last_name }}</label>
+            <span>{{form.errors.last_name}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit address*: {{ form.address }}</label>
+            <span>{{form.errors.address}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit phone number*: {{ form.phone_number }}</label>
+            <span>{{form.errors.phone_number}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit email*: {{ form.email }}</label>
+            <span>{{form.errors.email}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <label class="form-label">Edit birthday date*: {{ form.birth_date }}</label>
+            <span>{{form.errors.birth_date}}</span>
+        </div>
+        <div class="form-outline mb-2">
+            <select name="sex" id="id_sex">
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+        </div>
+        <div class="form-outline mb-2">
+            <select name="status" id="id_status">
+                <option value="family">family</option>
+                <option value="friend">friend</option>
+                <option value="partner">partner</option>
+                <option value="colleague">colleague</option>
+                <option value="other">other</option>
+            </select>
+        </div>
+
+         <div class="d-flex justify-content-center button-container">
+            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Save</button>
+         </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

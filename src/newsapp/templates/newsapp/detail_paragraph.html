@@ -1,0 +1,62 @@
+{% extends "usersapp/base.html" %}
+
+{% block content %}
+<style>
+     .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 5;
+        padding-top: 100px;
+
+     .scrollable-card-container {
+        max-height: 800px; /* Set the maximum height for the scrollable area */
+        overflow: auto; /* Enable vertical scrolling when the content exceeds the height */
+    }
+
+    .card-container {
+        max-width: 1600px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        text-align: center;
+        justify-content: center;
+        background-color: #fff;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .card-image-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 100px;
+    }
+
+    .card-image {
+        max-width: 100%;
+        max-height: 800px;
+        border-radius: 10px;
+    }
+
+    .card-content {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+</style>
+<body>
+<div class="content-container">
+ <div class="scrollable-card-container">
+ <div class="card-container">
+        <h1>{{ title }}</h1>
+        <div class="card-image-container">
+            <img src="{{ picture }}" class="card-image" alt="Article Image">
+        </div>
+        <h4 class="card-content">{{ content }}</h4>
+ </div></div></div></body>
+
+{% endblock %}
