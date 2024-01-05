@@ -101,13 +101,6 @@ def redirect_check(request, query):
     return redirect(to="https://t.me/ChefHelperBot")
 
 
-"""(12, 'Andrii', 'Osypenko', datetime.date(1991, 3, 5),
-'380637064471', 'osandreyman@gmail.com',
-'Uk', datetime.datetime(1991, 3, 5, 0, 0, tzinfo=datetime.timezone.utc),
-datetime.datetime(1991, 3, 5, 0, 0, tzinfo=datetime.timezone.utc), 'male', 'friend', 12)
-"""
-
-
 async def start_chatting(tg_user_id, user_id, contact_id):
     print(f'USER ID:  {user_id}')
     print('START CHATING ' + str(tg_user_id))
@@ -190,34 +183,34 @@ async def handle_ai_message(message: types.Message):
                 break
 
 
-# def db_connection(user_id, contact_id):
-#     connection = None
-#     cursor = None
-#     try:
-#         # Connect to an existing database
-#         connection = psycopg2.connect(user=env('ELEPHANT_DATABASE_USER'),
-#                                       password=env('ELEPHANT_DATABASE_PASSWORD'),
-#                                       host=env('ELEPHANT_DATABASE_HOST'),
-#                                       port=env('ELEPHANT_DATABASE_PORT'),
-#                                       database=env('ELEPHANT_DATABASE_NAME'))
-#
-#         # Create a cursor to perform database operations
-#         cursor = connection.cursor()
-#         # Print PostgreSQL details
-#         print("PostgreSQL server information")
-#         print(connection.get_dsn_parameters(), "\n")
-#         # Executing a SQL query
-#         cursor.execute(
-#             f"SELECT * FROM contactsapp_contact WHERE contactsapp_contact.user_id={user_id} AND contactsapp_contact.id={contact_id}")
-#         # Fetch result
-#         record = cursor.fetchone()
-#
-#         print("You are connected to - ", record, "\n")
-#         return record
-#     except (Exception, Error) as error:
-#         print("Error while connecting to PostgreSQL", error)
-#     finally:
-#         if connection:
-#             cursor.close()
-#             connection.close()
-#             print("PostgreSQL connection is closed")
+def db_connection(user_id, contact_id):
+    connection = None
+    cursor = None
+    try:
+        # Connect to an existing database
+        connection = psycopg2.connect(user=env('ELEPHANT_DATABASE_USER'),
+                                      password=env('ELEPHANT_DATABASE_PASSWORD'),
+                                      host=env('ELEPHANT_DATABASE_HOST'),
+                                      port=env('ELEPHANT_DATABASE_PORT'),
+                                      database=env('ELEPHANT_DATABASE_NAME'))
+
+        # Create a cursor to perform database operations
+        cursor = connection.cursor()
+        # Print PostgreSQL details
+        print("PostgreSQL server information")
+        print(connection.get_dsn_parameters(), "\n")
+        # Executing a SQL query
+        cursor.execute(
+            f"SELECT * FROM contactsapp_contact WHERE contactsapp_contact.user_id={user_id} AND contactsapp_contact.id={contact_id}")
+        # Fetch result
+        record = cursor.fetchone()
+
+        print("You are connected to - ", record, "\n")
+        return record
+    except (Exception, Error) as error:
+        print("Error while connecting to PostgreSQL", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
