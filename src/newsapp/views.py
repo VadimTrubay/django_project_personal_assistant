@@ -14,43 +14,29 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 
-# from ..tokens import account_activation_token
 from .scrap_news import *
-
-
 
 
 @login_required
 def choice_topic(request, q):
-    print(q)
-    list1 = []
+    list_res = []
+    match q:
+        case 'war_in_ukraine':
+            list_res = news_war()
+        case 'business':
+            list_res = news_business()
+        case 'since':
+            list_res = news_since()
 
-    if q == 'war_in_ukraine':
-        list1 = news_war()
-        
-    elif q == 'business':
-         list1 = news_business()
-
-    elif q == 'since':
-         list1 = news_since()
-
-    elif q == '':
-         list1 = news_business()
-
-    return render(request, 'newsapp/read_news.html', {"text": list1})
+    return render(request, 'newsapp/read_news.html', {"text": list_res})
 
 
 @login_required
 def paragraph(request, q):
- 
     title, text, picture = parse_page(q)
-    print(f'Text: : : :  {text}')
     context = {
         'title': title,
         'content': text,
         'picture': picture,
     }
-    print(f"CONTENT   ::::   {context}")
     return render(request, 'newsapp/detail_paragraph.html', context)
-
-   

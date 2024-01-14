@@ -23,7 +23,7 @@ def main(request):
 
 
 def root(request):
-    return render(request=request, template_name='usersapp/main.html', context={})
+    return render(request=request, template_name='usersapp/index.html', context={})
 
 
 def terms(request):

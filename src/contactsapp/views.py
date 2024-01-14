@@ -136,7 +136,7 @@ class ContactSendEmail(ContactObjectMixin, View):
 
         return render(request, self.template_name, context={"form": form, "object": obj})
 
-    def post(self, request, id=None, *args, **kwargs):
+    def post(self, request, _id=None, *args, **kwargs):
         context = {}
         obj = self.get_object()
         if obj is not None:

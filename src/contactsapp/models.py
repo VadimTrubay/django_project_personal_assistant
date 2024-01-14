@@ -4,7 +4,6 @@ from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 
-"""To import top-level model from any app"""
 from django.contrib.auth import get_user_model
 
 

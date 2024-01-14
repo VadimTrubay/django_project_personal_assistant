@@ -9,15 +9,17 @@
                     {% if form.errors %}
                     <span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
                     {% endif %}
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-5">Send</button>
-        </form>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit"
+                                class="btn btn-success btn-block btn-lg gradient-custom-5 text-body col-5">Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-</div>
 </div>
 
 {% endblock %}

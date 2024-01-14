@@ -1,8 +1,14 @@
+<style>
+
+details[role=list] summary+ul li a:hover, li[role=list]>ul li a:hover {
+    background-color: hsl(205deg 1.47% 73.36%);
+}
+</style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <div class="navbar-brand">
             <a class="navbar-brand" href="{% url 'usersapp:main' %}">
-               {% load static %}<img src="{% static 'usersapp/media/logo.png' %}"  alt="logo" width="200" height="100" />
+                {% load static %}<img src="{% static 'usersapp/media/logo.png' %}" alt="logo" width="200" height="100"/>
             </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -66,7 +72,7 @@
                     <a href="#" aria-haspopup="listbox" role="button">News</a>
                     <ul role="listbox">
                         <li><a href="{% url 'newsapp:read_news' q='war_in_ukraine' %}"
-                                             id="btn_war_ukraine">War in Ukraine</a></li>
+                               id="btn_war_ukraine">War in Ukraine</a></li>
                         <li><a href="{% url 'newsapp:read_news' q='business' %}" id="btn_business">Business</a></li>
                         <li><a href="{% url 'newsapp:read_news' q='since' %}" id="btn_since">Since</a>
                         </li>
@@ -97,57 +103,57 @@
 
         </div>
     </div>
- <style>
+    <style>
 
-    ul[role="listbox"] {
-        background-color: #f0f0f0; /* Replace with the desired color */
-        padding: 10px; /* Optional: Add padding to the list */
-        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        ul[role="listbox"] {
+            background-color: #f0f0f0; /* Replace with the desired color */
+            padding: 10px; /* Optional: Add padding to the list */
+            border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        }
+
+        details[role=list] summary+ul, li[role=list]>ul {
+
+        z-index: 99;
+        position: absolute;
+        top: auto;
+        right: 0;
+        left: 0;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        border: var(--border-width) solid #f8f9fa;
+        border-radius: var(--border-radius);
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        background-color: #f0f0f0;
+        box-shadow: var(--card-box-shadow);
+        color: var(--dropdown-color);
+        white-space: nowrap;
     }
 
-    details[role=list] summary+ul, li[role=list]>ul {
-
-    z-index: 99;
-    position: absolute;
-    top: auto;
-    right: 0;
-    left: 0;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    border: var(--border-width) solid #f8f9fa;
-    border-radius: var(--border-radius);
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    background-color: #f0f0f0;
-    box-shadow: var(--card-box-shadow);
-    color: var(--dropdown-color);
-    white-space: nowrap;
-}
-
-    ul[role="list"][dir="rtl"] {
-        background-color: #ffffff;
+        ul[role="list"][dir="rtl"] {
+            background-color: #ffffff;
 
 
-    ul li a {
-        font-size: 15px;
+        ul li a {
+            font-size: 15px;
+        }
+
+        ul li a {
+          background-color: #f0f0f0; /* Replace this with the desired color */
+          padding: 5px 10px; /* Add some padding to make the background visible */
+          border-radius: 5px; /* Add border-radius for rounded corners */
+          text-decoration: none; /* Remove underline from links */
     }
 
-    ul li a {
-      background-color: #f0f0f0; /* Replace this with the desired color */
-      padding: 5px 10px; /* Add some padding to make the background visible */
-      border-radius: 5px; /* Add border-radius for rounded corners */
-      text-decoration: none; /* Remove underline from links */
-}
 
+        ul li a:hover {
+            background-color: #ccc; /* Replace this with the desired hover color */
+        }
 
-    ul li a:hover {
-        background-color: #ccc; /* Replace this with the desired hover color */
-    }
-
-    .small-button-spacing {
-        margin-bottom: 10px;
-    }
+        .small-button-spacing {
+            margin-bottom: 10px;
+        }
 
 
     </style>

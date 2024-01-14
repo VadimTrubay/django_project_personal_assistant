@@ -5,7 +5,6 @@ from django import forms
 
 class FileUploadForm(forms.Form):
     file = forms.FileField()
-
     folder = forms.CharField(max_length=30, required=False)
 
     def clean_custom_folder(self):

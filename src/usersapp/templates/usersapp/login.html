@@ -10,8 +10,6 @@
                     {% if form.errors %}
                     <span class="alert alert-danger" role="alert">{{form.non_field_errors}}</span>
                     {% endif %}
-
-
                     <form method="post" action="{% url 'usersapp:login_user' %}">
                         {% csrf_token %}
                         <div class="form-outline mb-2">
@@ -19,22 +17,25 @@
                             <label class="form-label">Your Username: {{ form.username }}</label>
                             <span>{{form.errors.username}}</span>
                         </div>
-
-
                         <div class="form-outline mb-2">
                             <!--                                    <input type="text" id="form3Example6cg" class="form-control form-control-lg"/>-->
                             <label class="form-label">Your Password: {{ form.password }}</label>
                             <span>{{form.errors.password}}</span>
                         </div>
-
-
                         <div class="d-flex justify-content-center button-container">
-                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Submit</button>
-                            <button type="reset" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">Reset</button></div>
+                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn btn-success btn-block btn-lg gradient-custom-5 text-body">
+                                Reset
+                            </button>
+                        </div>
                         <div class="small text-center button-container">
                             <a href="{% url 'usersapp:password_reset' %}" class="text-center"><i>Forgot
                                 Password?</i></a></div>
-                        <div class="small text-center button-container"><a href="{% url 'usersapp:create_user_profile' %}" class="text-center"><i>Don't have account yet?</i></a>
+                        <div class="small text-center button-container"><a
+                                href="{% url 'usersapp:create_user_profile' %}" class="text-center"><i>Don't have
+                            account yet?</i></a>
                         </div>
                     </form>
                 </div>

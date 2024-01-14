@@ -18,9 +18,10 @@ DROPBOX_APP_SECRET = DROPBOX_APP_SECRET
 # DROPBOX_OAUTH2_REFRESH_TOKEN = env("DROPBOX_OAUTH2_REFRESH_TOKEN")
 REDIRECT_URL = 'http://127.0.0.1:8000/cloud_storageapp/'
 
+
 def dropbox_oauth(request):
-    print('Auth Started !!!!!!!!!!!')
-    return redirect(f'https://www.dropbox.com/oauth2/authorize?client_id={DROPBOX_APP_KEY}&redirect_uri={REDIRECT_URL}authorized&response_type=code')
+    return redirect(
+        f'https://www.dropbox.com/oauth2/authorize?client_id={DROPBOX_APP_KEY}&redirect_uri={REDIRECT_URL}authorized&response_type=code')
 
 
 def dropbox_authorized(request):
@@ -36,14 +37,11 @@ def dropbox_authorized(request):
     }, auth=(DROPBOX_APP_KEY, DROPBOX_APP_SECRET))
     request.session["DROPBOX_ACCESS_TOKEN"] = data.json()["access_token"]
     with open('OAuth_token.json', 'w') as file:
-        json.dump({"datetime":datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "token": data.json()["access_token"]}, file, indent=4, ensure_ascii=False)
+        json.dump(
+            {"datetime": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "token": data.json()["access_token"]},
+            file, indent=4, ensure_ascii=False)
 
     return redirect(to="cloud_storageapp:dropbox_folders")
-
-
-
-
-
 
 
 # """query for search!"""
@@ -71,7 +69,7 @@ def dropbox_authorized(request):
 
 def get_access_token():
     with open('OAuth_token.json', 'r') as file:
-        data =  json.load(file)
+        data = json.load(file)
         date = data.get('datetime')
         date_dt_obj = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M")
         curent_time = datetime.datetime.now()
@@ -97,7 +95,6 @@ def get_access_dbx(request):
         print(f"My ERROR !!!!! ::: {err}")
 
     return dbx
-
 
 
 def dropbox_folders(request):
@@ -126,7 +123,6 @@ def dropbox_folders(request):
     return render(request, 'dropbox_folders.html', context)
 
 
-
 def folder_files(request, folder_path):
     print(str(folder_path).strip('/'))
     dbx = get_access_dbx(request)
@@ -150,8 +146,6 @@ def folder_files(request, folder_path):
     context = {'files': files, 'folder_path': folder_path}
     return render(request, 'folder_files.html', context)
 
-
-
     # for entry in dbx.files_list_folder(folder_path).entries:
     #     if isinstance(entry, dropbox.files.FileMetadata):
     #         files.append(entry)
@@ -160,10 +154,8 @@ def folder_files(request, folder_path):
     # return render(request, 'folder_files.html', context)
 
 
-
 def success_upload(request):
     return render(request, 'upload_success.html', {})
-
 
 
 def upload_file(request):
@@ -194,12 +186,10 @@ def upload_file(request):
     return render(request, 'upload_file.html', {'form': form})
 
 
-
 # dbx.files_download(db_query_file, rev=None)
 
 def download_file(request, file_path):
-
-    file_full_path = 'cloud_storageapp/download-file/'+file_path
+    file_full_path = 'cloud_storageapp/download-file/' + file_path
 
     # while '//' in file_full_path:
     #     file_full_path = file_full_path.replace('//', '/')
@@ -225,9 +215,7 @@ def download_file(request, file_path):
     return response
 
 
-
 def remove_folder(request, folder_path):
-
     dbx = get_access_dbx(request)
     if isinstance(dbx, (HttpResponseRedirect, type(None))):
         print(f'ISTANCE ::::::::::::::: {dbx}')
@@ -270,7 +258,8 @@ def folder_files_docs(request, folder_path):
         for entry in result.entries:
             if isinstance(entry, dropbox.files.FileMetadata):
                 _, file_extension = os.path.splitext(entry.name)
-                if file_extension.lower() in ['.docx', '.doc','.pdf','.xls','.xlsx','.ppt','.pptx','.xps','.dot','.wbk','.docm','.txt','.rtf','.log']:
+                if file_extension.lower() in ['.docx', '.doc', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx', '.xps', '.dot',
+                                              '.wbk', '.docm', '.txt', '.rtf', '.log']:
                     files.append(entry)
         for entry in dbx.files_list_folder('', recursive=True).entries:
             if isinstance(entry, dropbox.files.FolderMetadata):
@@ -285,7 +274,6 @@ def folder_files_docs(request, folder_path):
 
     context = {'files': files, 'folder_path': folder_path, 'folders': folders}
     return render(request, 'folder_files_docs.html', context)
-
 
 
 def folder_files_audio(request, folder_path):
@@ -302,7 +290,8 @@ def folder_files_audio(request, folder_path):
         for entry in result.entries:
             if isinstance(entry, dropbox.files.FileMetadata):
                 _, file_extension = os.path.splitext(entry.name)
-                if file_extension.lower() in ['.aac', '.mp3','.wav','.wma','.dolby','.digital','.dts','.aiff','.asf','.flac','.adpcm','.dsd','.lpcm','.ogg']:
+                if file_extension.lower() in ['.aac', '.mp3', '.wav', '.wma', '.dolby', '.digital', '.dts', '.aiff',
+                                              '.asf', '.flac', '.adpcm', '.dsd', '.lpcm', '.ogg']:
                     files.append(entry)
         for entry in dbx.files_list_folder('', recursive=True).entries:
             if isinstance(entry, dropbox.files.FolderMetadata):
@@ -317,7 +306,6 @@ def folder_files_audio(request, folder_path):
 
     context = {'files': files, 'folder_path': folder_path, 'folders': folders}
     return render(request, 'folder_files_docs.html', context)
-
 
 
 def folder_files_video(request, folder_path):
@@ -334,7 +322,8 @@ def folder_files_video(request, folder_path):
         for entry in result.entries:
             if isinstance(entry, dropbox.files.FileMetadata):
                 _, file_extension = os.path.splitext(entry.name)
-                if file_extension.lower() in ['.mpeg-1', '.mpeg-4','.mpeg-2','.avi','.mov','.avchd','.divx','.hd','.mkv','.webm','.flv','.viv','.ts','.mpg']:
+                if file_extension.lower() in ['.mpeg-1', '.mpeg-4', '.mpeg-2', '.avi', '.mov', '.avchd', '.divx', '.hd',
+                                              '.mkv', '.webm', '.flv', '.viv', '.ts', '.mpg']:
                     files.append(entry)
         for entry in dbx.files_list_folder('', recursive=True).entries:
             if isinstance(entry, dropbox.files.FolderMetadata):
@@ -349,8 +338,6 @@ def folder_files_video(request, folder_path):
 
     context = {'files': files, 'folder_path': folder_path, 'folders': folders}
     return render(request, 'folder_files_docs.html', context)
-
-
 
 
 def folder_files_images(request, folder_path):
@@ -367,7 +354,8 @@ def folder_files_images(request, folder_path):
         for entry in result.entries:
             if isinstance(entry, dropbox.files.FileMetadata):
                 _, file_extension = os.path.splitext(entry.name)
-                if file_extension.lower() in ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.png','.gif','.webp','.tiff','.tif','.psd','.bmp','.dib','.raw','.arw','.nrw','.img']:
+                if file_extension.lower() in ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.png', '.gif', '.webp',
+                                              '.tiff', '.tif', '.psd', '.bmp', '.dib', '.raw', '.arw', '.nrw', '.img']:
                     files.append(entry)
         for entry in dbx.files_list_folder('', recursive=True).entries:
             if isinstance(entry, dropbox.files.FolderMetadata):
@@ -382,7 +370,6 @@ def folder_files_images(request, folder_path):
 
     context = {'files': files, 'folder_path': folder_path, 'folders': folders}
     return render(request, 'folder_files_docs.html', context)
-
 
 
 """GEt ACCESS TOKEN """
@@ -420,14 +407,14 @@ def folder_files_images(request, folder_path):
 #     return JsonResponse(data.json())
 
 
-    # Check if the file exists
-    # if os.path.exists(file_full_path):
-    #     # Open the file in binary mode and create a FileResponse to stream the file to the client
-    #     with open(file_full_path, 'rb') as file:
-    #         response = FileResponse(file, content_type='application/octet-stream')
-    #         # Set the content disposition header to force the file download
-    #         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_full_path)}"'
-    #         return response
-    # else:
-    #     # Return a 404 Not Found response if the file does not exist
-    #     return HttpResponseNotFound("File not found.")
+# Check if the file exists
+# if os.path.exists(file_full_path):
+#     # Open the file in binary mode and create a FileResponse to stream the file to the client
+#     with open(file_full_path, 'rb') as file:
+#         response = FileResponse(file, content_type='application/octet-stream')
+#         # Set the content disposition header to force the file download
+#         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_full_path)}"'
+#         return response
+# else:
+#     # Return a 404 Not Found response if the file does not exist
+#     return HttpResponseNotFound("File not found.")
