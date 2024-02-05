@@ -56,7 +56,6 @@
   - 
 - python manage.py makemigrations  - create migrations
 - python manage.py migrate - applying migrations
-- python manage.py create_storageapp_tables - create tables for dropbox
 - python manage.py createsuperuser - create superuser
 - python manage.py runserver - start app
 
@@ -88,21 +87,12 @@
 - other user never can see your data
 - enjoy and not forget do donate us!
 
-
-
-# How to use documentation:
-- documentation link - http://localhost:63342/Team_project_Web/personal_assistant/docs/_build/html/index.html
-- to create/update documentation - \personal_assistant\docs>make.bat html (Windows) or \personal_assistant\docs>make html (Linux)
-
-
 # Used technologies:
-- Python 3.10
-- Django 4.2.1
+- Python
+- Django
 - BeautifulSoup 4
 - Sphinx
-- PostgreSQL 12.0
-- OpenWeatherMap API
-- DOU API
+- PostgreSQL
 - OpenAI API
 - DropBox API
 - Bootstrap 5.1.3
